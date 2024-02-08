@@ -24,9 +24,11 @@ io.on("connection", (socket) => {
         const user = name;
         userManger.addUser(user, socket);
     });
+    io.on("disconnect", (socket) => {
+        console.log("disconencted");
+        userManger.removeUser(socket);
+    });
 });
-io.on("disconnect", (socket) => {
-    console.log("disconencted");
-    userManger.removeUser(socket);
+httpServer.listen(3000, () => {
+    console.log("listening httpServer on port 3000");
 });
-httpServer.listen(3000);
