@@ -8,7 +8,7 @@ const app = express()
 app.use(express.json())
 app.use(cors())
 
-const httpServer = createServer()
+const httpServer = createServer(app)
 const io = new Server(httpServer, {
     cors: {
         origin: "*"
@@ -31,6 +31,6 @@ io.on("connection", (socket: Socket)=>{
 
 })
 
-httpServer.listen(3000, ()=>{
+app.listen(3000, ()=>{
     console.log("listening httpServer on port 3000")
 })
