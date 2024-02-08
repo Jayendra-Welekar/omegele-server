@@ -26,6 +26,7 @@ io.on("connection", (socket) => {
     });
 });
 io.on("disconnect", (socket) => {
+    console.log("disconencted");
     userManger.removeUser(socket);
 });
 httpServer.listen(3000);

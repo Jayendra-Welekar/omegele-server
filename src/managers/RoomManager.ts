@@ -49,7 +49,12 @@ export class RoomManager {
                 break;
             }
         }
-        if(roomId){this.rooms.delete(roomId?.toString())}
+        if(roomId){
+            const user1 = this.rooms.get(roomId)?.user1
+            const user2 = this.rooms.get(roomId)?.user2
+            user1?.socket.emit('exit')
+            user2?.socket.emit('exit')
+            this.rooms.delete(roomId?.toString())}
        }
 
     onAnswer(roomId:string, sdp:string, senderSocketId:string){

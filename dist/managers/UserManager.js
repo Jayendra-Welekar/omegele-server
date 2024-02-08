@@ -12,16 +12,12 @@ class UserManager {
         this.users.push({
             name: user, socket
         });
-        console.log("adding new user ", user);
         this.queue.push(socket.id.toString());
-        socket.emit("lobby");
-        console.log("sendin lobby");
         this.clearQueue();
         this.initHandlers(socket);
     }
     clearQueue() {
         console.log("Entered clearQueue");
-        console.log("This is current set of users: ", this.users);
         if (this.queue.length < 2) {
             return;
         }
@@ -50,7 +46,11 @@ class UserManager {
         });
     }
     removeUser(socket) {
+        const user = this.users.find(x => x.socket.id == socket.id);
         this.users = this.users.filter(x => x.socket.id != socket.id);
+        if (user) {
+            this.roomManager.deleteRoom(user);
+        }
     }
 }
 exports.UserManager = UserManager;

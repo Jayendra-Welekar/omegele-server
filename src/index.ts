@@ -28,6 +28,7 @@ io.on("connection", (socket: Socket)=>{
 })
 
 io.on("disconnect", (socket: Socket)=>{
+    console.log("disconencted")
     userManger.removeUser(socket)
 })
 

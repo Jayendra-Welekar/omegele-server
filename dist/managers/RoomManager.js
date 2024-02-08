@@ -30,6 +30,7 @@ class RoomManager {
         });
     }
     deleteRoom(user) {
+        var _a, _b;
         let roomId;
         console.log("on DeleteRoom");
         for (const [key, value] of this.rooms.entries()) {
@@ -39,6 +40,10 @@ class RoomManager {
             }
         }
         if (roomId) {
+            const user1 = (_a = this.rooms.get(roomId)) === null || _a === void 0 ? void 0 : _a.user1;
+            const user2 = (_b = this.rooms.get(roomId)) === null || _b === void 0 ? void 0 : _b.user2;
+            user1 === null || user1 === void 0 ? void 0 : user1.socket.emit('exit');
+            user2 === null || user2 === void 0 ? void 0 : user2.socket.emit('exit');
             this.rooms.delete(roomId === null || roomId === void 0 ? void 0 : roomId.toString());
         }
     }
